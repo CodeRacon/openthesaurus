@@ -12,8 +12,8 @@ function renderSynsets(synsets) {
   let container = document.getElementById('container');
 
   container.innerHTML = /*html*/ `
-    <div>
-      Es wurden <b> ${synsets.length} </b>Synonym-Sets geladen.
+    <div class="synset-amount mb-2" >
+      Es wurden <span> ${synsets.length} </span>Synonym-Sets geladen:
     </div>
   `;
 }

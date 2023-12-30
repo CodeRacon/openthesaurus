@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fonts.css" />
     <script defer src="script.js"></script>
     <title>Open Thesaurus</title>
   </head>
   <body>
-    <button onclick="getSynonyms()">Get Synonyms</button>
+    <header>
+      <h1>Need a Synonym?</h1>
+    </header>
 
-    <div id="container"></div>
+    <main>
+      <div class="input-container mb-2">
+        <input type="text" placeholder="type your word" />
+        <button onclick="getSynonyms()">Get your Synonyms</button>
+      </div>
+      <div class="syn-container" id="container"></div>
+    </main>
   </body>
 </html>
