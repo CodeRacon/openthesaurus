@@ -10,14 +10,19 @@
   </head>
   <body>
     <header>
-      <h1>Need a Synonym?</h1>
+      <h1>&nbsp;In Need of a Synonym?</h1>
     </header>
 
     <main>
       <div class="input-container mb-2">
-        <input type="text" placeholder="type your word" />
-        <button onclick="getSynonyms()">Get your Synonyms</button>
+        <input
+          type="text"
+          required
+          placeholder="type your word"
+          id="searchQuery" />
+        <button onclick="initSynonyms()">Find</button>
       </div>
+      <div id="set-amount"></div>
       <div class="syn-container" id="container"></div>
     </main>
   </body>

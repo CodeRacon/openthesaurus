@@ -1,59 +1,43 @@
-function initSynonyms() {
-  let query = document.getElementById('searchQuery').value.trim();
-  let setAmount = document.getElementById('set-amount');
+async function getSynonyms() {
+  let query = document.getElementById('searchQuery').value;
 
-  if (query === '') {
-    setAmount.innerHTML = /*html*/ `
-  		<div class="synset-amount" >
-  			Bitte gib einen Begriff ein.
-  		</div>
-  	`;
-    return;
-  } else {
-    fetchSynonyms(query);
-  }
-}
-
-async function fetchSynonyms(query) {
   let url = `https://www.openthesaurus.de/synonyme/search?q=${query}&format=application/json`;
 
   let response = await fetch(url);
   let responseAsJSON = await response.json();
   let synsets = responseAsJSON['synsets'];
-
   renderSynsets(synsets);
 }
 
-function renderSynsets(synsets, query) {
+function renderSynsets(synsets) {
   let container = document.getElementById('container');
   let setAmount = document.getElementById('set-amount');
 
   container.innerHTML = ''; // Leere den Container zuerst
-  setAmount.innerHTML = '';
-
-  if (synsets.length === 0) {
-    setAmount.innerHTML = /*html*/ `
-  		<div class="synset-amount" >
-  			Dazu konnten keine Synonyme gefunden werden. Tippfehler?
-  		</div>
-  	`;
-  } else if (synsets.length === 1) {
-    setAmount.innerHTML = /*html*/ `
-  		<div class="synset-amount" >
-  			Es wurde <span> 1 </span>Synonym-Set gefunden:
-  		</div>
-  	`;
-  } else {
-    setAmount.innerHTML = /*html*/ `
-  		<div class="synset-amount" >
-  			Es wurden <span> ${synsets.length} </span>Synonym-Sets gefunden:
-  		</div>
-  	`;
-  }
 
   for (let i = 0; i < synsets.length; i++) {
     const synset = synsets[i];
     let terms = synset['terms'];
+
+    if (synset.length === 0) {
+      setAmount.innerHTML = /*html*/ `
+  		<div class="synset-amount" >
+  			Es konnten keine Synonyme gefunden werden. Tippfehler?
+  		</div>
+  	`;
+    } else if (synset.length === 1) {
+      setAmount.innerHTML = /*html*/ `
+  		<div class="synset-amount" >
+  			Es wurde <span> 1 </span>Synonym-Set gefunden:
+  		</div>
+  	`;
+    } else {
+      setAmount.innerHTML = /*html*/ `
+  		<div class="synset-amount" >
+  			Es wurden <span> ${synsets.length} </span>Synonym-Sets gefunden:
+  		</div>
+  	`;
+    }
 
     let ul = document.createElement('ul'); // Erstelle ein neues <ul> Element für jedes Synset
     ul.innerHTML += `<h3>Set ${i + 1}:</h3>`; // Füge die Set-Überschrift hinzu
